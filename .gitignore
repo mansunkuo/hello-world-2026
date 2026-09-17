@@ -1,0 +1,4 @@
+.structurizr/
+static-site/
+*.log
+.DS_Store
