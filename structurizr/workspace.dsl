@@ -6,7 +6,12 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 
         preorderSystem = softwareSystem "Preorder Lottery System" "Lets buyers register for the toys they want, draws the winners when registration closes, and lets winners choose a pickup store." {
             adminWeb = container "Admin Web" "Lets operators set a campaign's period, each buyer's total entry limit, the toys open for registration and the pickup stores." "React / Web browser"
-            preorderApi = container "Preorder API" "Receives registrations and pickup-store choices forwarded by the real-name app, and lets the admin web read and write campaign settings." "Node.js / Express REST API"
+            preorderApi = container "Preorder API" "Receives registrations and pickup-store choices forwarded by the real-name app, and lets the admin web read and write campaign settings." "Node.js / Express REST API" {
+                authGuard = component "Credential Guard" "Verifies the real-name credential issued by the real-name app (signature and expiry) and rejects buyer requests that fail." "TypeScript Middleware"
+                campaignService = component "Campaign Rules Service" "Manages preorder campaigns and checks the campaign period and each buyer's total entry limit." "TypeScript Service"
+                registrationService = component "Registration Service" "Accepts a buyer's registration for the toys they want, applies the campaign rules before saving it, and serves result queries." "TypeScript Service"
+                pickupService = component "Pickup Service" "Lets winning buyers choose a pickup store and sends the winner list and pickup stores to the store pickup system." "TypeScript Service"
+            }
             lotteryJob = container "Lottery Job" "When a campaign closes, reads all registrations, draws winners by the rules, saves the results, and asks the real-name app to push notifications." "Node.js / scheduled job"
             preorderDb = container "Preorder Database" "Stores campaign settings, buyer registrations, lottery results and pickup stores." "PostgreSQL"
         }
@@ -14,13 +19,19 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         storeSystem = softwareSystem "Store Pickup System" "The agent's existing store system, which checks the winner list and pickup store and hands over the goods." "External System"
 
         buyer -> realnameApp "Registers, views results and chooses a pickup store in the app"
-        realnameApp -> preorderApi "Forwards preorder requests (with the real-name credential)" "HTTPS"
+        realnameApp -> authGuard "Forwards preorder requests (with the real-name credential)" "HTTPS"
+        authGuard -> registrationService "Forwards registrations and result queries once the credential passes"
+        authGuard -> pickupService "Forwards pickup-store choices once the credential passes"
+        registrationService -> campaignService "Looks up the campaign period and per-buyer entry limit"
+        pickupService -> campaignService "Looks up the available pickup stores"
         operator -> adminWeb "Sets up preorder campaigns and lottery rules"
-        adminWeb -> preorderApi "Reads and writes campaign settings" "HTTPS"
-        preorderApi -> preorderDb "Reads and writes campaigns, registrations, lottery results and pickup stores" "SQL"
+        adminWeb -> campaignService "Reads and writes campaign settings" "HTTPS"
+        campaignService -> preorderDb "Reads and writes campaign settings" "SQL"
+        registrationService -> preorderDb "Saves registrations and reads lottery results" "SQL"
+        pickupService -> preorderDb "Saves pickup stores" "SQL"
+        pickupService -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
         lotteryJob -> preorderDb "Reads registrations and writes lottery results" "SQL"
         lotteryJob -> realnameApp "Asks the app to push the lottery results" "HTTPS"
-        preorderApi -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
     }
 
     configuration {
@@ -36,6 +47,10 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         container preorderSystem "Containers" {
             include *
             include buyer
+            autoLayout lr
+        }
+        component preorderApi "Components" {
+            include *
             autoLayout lr
         }
         styles {
