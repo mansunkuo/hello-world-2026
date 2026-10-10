@@ -1,0 +1,930 @@
+{
+  "configuration" : {
+    "scope" : "SoftwareSystem"
+  },
+  "description" : "C4 Workshop",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr/diagrams/3c21dde5-606d-4745-8d87-cf88cc234db5",
+  "lastModifiedDate" : "2026-10-10T16:16:03Z",
+  "lastModifiedUser" : "283850066",
+  "model" : {
+    "deploymentNodes" : [ {
+      "children" : [ {
+        "containerInstances" : [ {
+          "containerId" : "5",
+          "environment" : "Production",
+          "id" : "38",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "apiInstance"
+          },
+          "relationships" : [ {
+            "description" : "Reads and writes campaign settings",
+            "destinationId" : "42",
+            "id" : "43",
+            "linkedRelationshipId" : "27",
+            "sourceId" : "38",
+            "technology" : "SQL"
+          }, {
+            "description" : "Sends the winner list and pickup stores",
+            "destinationId" : "55",
+            "id" : "56",
+            "linkedRelationshipId" : "31",
+            "sourceId" : "38",
+            "technology" : "HTTPS"
+          } ],
+          "tags" : "Container Instance"
+        } ],
+        "description" : "Runs the Preorder API in containers without managing servers.",
+        "environment" : "Production",
+        "id" : "37",
+        "instances" : "1",
+        "name" : "ECS Fargate",
+        "properties" : {
+          "structurizr.dsl.identifier" : "ecs"
+        },
+        "tags" : "Element,Deployment Node,Amazon Web Services - Fargate",
+        "technology" : "AWS Fargate"
+      }, {
+        "containerInstances" : [ {
+          "containerId" : "10",
+          "environment" : "Production",
+          "id" : "40",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "jobInstance"
+          },
+          "relationships" : [ {
+            "description" : "Reads registrations and writes lottery results",
+            "destinationId" : "42",
+            "id" : "44",
+            "linkedRelationshipId" : "33",
+            "sourceId" : "40",
+            "technology" : "SQL"
+          }, {
+            "description" : "Asks the app to push the lottery results",
+            "destinationId" : "51",
+            "id" : "53",
+            "linkedRelationshipId" : "34",
+            "sourceId" : "40",
+            "technology" : "HTTPS"
+          } ],
+          "tags" : "Container Instance"
+        } ],
+        "description" : "Triggers the lottery job at the campaign's closing time.",
+        "environment" : "Production",
+        "id" : "39",
+        "instances" : "1",
+        "name" : "EventBridge Scheduled Task",
+        "properties" : {
+          "structurizr.dsl.identifier" : "scheduler"
+        },
+        "tags" : "Element,Deployment Node,Amazon Web Services - EventBridge",
+        "technology" : "AWS EventBridge + Fargate task"
+      }, {
+        "containerInstances" : [ {
+          "containerId" : "11",
+          "environment" : "Production",
+          "id" : "42",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "dbInstance"
+          },
+          "tags" : "Container Instance"
+        } ],
+        "description" : "A managed relational database in a single availability zone to save cost.",
+        "environment" : "Production",
+        "id" : "41",
+        "instances" : "1",
+        "name" : "RDS for PostgreSQL",
+        "properties" : {
+          "structurizr.dsl.identifier" : "rds"
+        },
+        "tags" : "Element,Deployment Node,Amazon Web Services - RDS",
+        "technology" : "PostgreSQL 16"
+      } ],
+      "description" : "Cloud services that we run ourselves.",
+      "environment" : "Production",
+      "id" : "36",
+      "instances" : "1",
+      "name" : "Cloud Region",
+      "properties" : {
+        "structurizr.dsl.identifier" : "cloud"
+      },
+      "tags" : "Element,Deployment Node,Amazon Web Services - Region",
+      "technology" : "AWS ap-northeast-1"
+    }, {
+      "children" : [ {
+        "containerInstances" : [ {
+          "containerId" : "4",
+          "environment" : "Production",
+          "id" : "47",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "adminInstance"
+          },
+          "relationships" : [ {
+            "description" : "Reads and writes campaign settings",
+            "destinationId" : "38",
+            "id" : "48",
+            "linkedRelationshipId" : "25",
+            "sourceId" : "47",
+            "technology" : "HTTPS"
+          } ],
+          "tags" : "Container Instance"
+        } ],
+        "description" : "Opens the admin web in a browser.",
+        "environment" : "Production",
+        "id" : "46",
+        "instances" : "1",
+        "name" : "Operator PC",
+        "properties" : {
+          "structurizr.dsl.identifier" : "browser"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Web browser"
+      } ],
+      "description" : "Where the operators work.",
+      "environment" : "Production",
+      "id" : "45",
+      "instances" : "1",
+      "name" : "Agent Office",
+      "properties" : {
+        "structurizr.dsl.identifier" : "office"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Office network"
+    }, {
+      "children" : [ {
+        "description" : "The agent's existing real-name app backend.",
+        "environment" : "Production",
+        "id" : "50",
+        "instances" : "1",
+        "name" : "Real-name App Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "appHost"
+        },
+        "softwareSystemInstances" : [ {
+          "environment" : "Production",
+          "id" : "51",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "realnameInstance"
+          },
+          "relationships" : [ {
+            "description" : "Forwards preorder requests (with the real-name credential)",
+            "destinationId" : "38",
+            "id" : "52",
+            "linkedRelationshipId" : "16",
+            "sourceId" : "51",
+            "technology" : "HTTPS"
+          } ],
+          "softwareSystemId" : "12",
+          "tags" : "Software System Instance"
+        } ],
+        "tags" : "Element,Deployment Node",
+        "technology" : "Existing system"
+      }, {
+        "description" : "The agent's existing store system.",
+        "environment" : "Production",
+        "id" : "54",
+        "instances" : "1",
+        "name" : "Store Pickup System Host",
+        "properties" : {
+          "structurizr.dsl.identifier" : "storeHost"
+        },
+        "softwareSystemInstances" : [ {
+          "environment" : "Production",
+          "id" : "55",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "storeInstance"
+          },
+          "softwareSystemId" : "13",
+          "tags" : "Software System Instance"
+        } ],
+        "tags" : "Element,Deployment Node",
+        "technology" : "Existing system"
+      } ],
+      "description" : "Existing systems that the agent operates itself; we only call them.",
+      "environment" : "Production",
+      "id" : "49",
+      "instances" : "1",
+      "name" : "Agent Existing Systems",
+      "properties" : {
+        "structurizr.dsl.identifier" : "agentEnv"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Agent data center"
+    } ],
+    "people" : [ {
+      "description" : "A consumer who wants to preorder popular toys and registers through the agent's real-name app.",
+      "id" : "1",
+      "name" : "Buyer",
+      "properties" : {
+        "structurizr.dsl.identifier" : "buyer"
+      },
+      "relationships" : [ {
+        "description" : "Registers, views results and chooses a pickup store in the app",
+        "destinationId" : "12",
+        "id" : "14",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "The agent's operations staff, who set each campaign's period and the total number of toys each buyer may enter for.",
+      "id" : "2",
+      "name" : "Operator",
+      "properties" : {
+        "structurizr.dsl.identifier" : "operator"
+      },
+      "relationships" : [ {
+        "description" : "Sets up preorder campaigns and lottery rules",
+        "destinationId" : "4",
+        "id" : "22",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Sets up preorder campaigns and lottery rules",
+        "destinationId" : "3",
+        "id" : "23",
+        "linkedRelationshipId" : "22",
+        "sourceId" : "2"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "Lets operators set a campaign's period, each buyer's total entry limit, the toys open for registration and the pickup stores.",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Admin Web",
+        "properties" : {
+          "structurizr.dsl.identifier" : "adminWeb"
+        },
+        "relationships" : [ {
+          "description" : "Reads and writes campaign settings",
+          "destinationId" : "7",
+          "id" : "24",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "HTTPS"
+        }, {
+          "description" : "Reads and writes campaign settings",
+          "destinationId" : "5",
+          "id" : "25",
+          "linkedRelationshipId" : "24",
+          "sourceId" : "4",
+          "technology" : "HTTPS"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "React / Web browser"
+      }, {
+        "components" : [ {
+          "description" : "Verifies the real-name credential issued by the real-name app (signature and expiry) and rejects buyer requests that fail.",
+          "documentation" : { },
+          "id" : "6",
+          "name" : "Credential Guard",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authGuard"
+          },
+          "relationships" : [ {
+            "description" : "Forwards registrations and result queries once the credential passes",
+            "destinationId" : "8",
+            "id" : "18",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Forwards pickup-store choices once the credential passes",
+            "destinationId" : "9",
+            "id" : "19",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "TypeScript Middleware"
+        }, {
+          "description" : "Manages preorder campaigns and checks the campaign period and each buyer's total entry limit.",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "Campaign Rules Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "campaignService"
+          },
+          "relationships" : [ {
+            "description" : "Reads and writes campaign settings",
+            "destinationId" : "11",
+            "id" : "26",
+            "sourceId" : "7",
+            "tags" : "Relationship",
+            "technology" : "SQL"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "TypeScript Service"
+        }, {
+          "description" : "Accepts a buyer's registration for the toys they want, applies the campaign rules before saving it, and serves result queries.",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "Registration Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "registrationService"
+          },
+          "relationships" : [ {
+            "description" : "Looks up the campaign period and per-buyer entry limit",
+            "destinationId" : "7",
+            "id" : "20",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Saves registrations and reads lottery results",
+            "destinationId" : "11",
+            "id" : "28",
+            "sourceId" : "8",
+            "tags" : "Relationship",
+            "technology" : "SQL"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "TypeScript Service"
+        }, {
+          "description" : "Lets winning buyers choose a pickup store and sends the winner list and pickup stores to the store pickup system.",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "Pickup Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "pickupService"
+          },
+          "relationships" : [ {
+            "description" : "Looks up the available pickup stores",
+            "destinationId" : "7",
+            "id" : "21",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Saves pickup stores",
+            "destinationId" : "11",
+            "id" : "29",
+            "sourceId" : "9",
+            "tags" : "Relationship",
+            "technology" : "SQL"
+          }, {
+            "description" : "Sends the winner list and pickup stores",
+            "destinationId" : "13",
+            "id" : "30",
+            "sourceId" : "9",
+            "tags" : "Relationship",
+            "technology" : "HTTPS"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "TypeScript Service"
+        } ],
+        "description" : "Receives registrations and pickup-store choices forwarded by the real-name app, and lets the admin web read and write campaign settings.",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "Preorder API",
+        "properties" : {
+          "structurizr.dsl.identifier" : "preorderApi"
+        },
+        "relationships" : [ {
+          "description" : "Reads and writes campaign settings",
+          "destinationId" : "11",
+          "id" : "27",
+          "linkedRelationshipId" : "26",
+          "sourceId" : "5",
+          "technology" : "SQL"
+        }, {
+          "description" : "Sends the winner list and pickup stores",
+          "destinationId" : "13",
+          "id" : "31",
+          "linkedRelationshipId" : "30",
+          "sourceId" : "5",
+          "technology" : "HTTPS"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Node.js / Express REST API"
+      }, {
+        "description" : "When a campaign closes, reads all registrations, draws winners by the rules, saves the results, and asks the real-name app to push notifications.",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Lottery Job",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lotteryJob"
+        },
+        "relationships" : [ {
+          "description" : "Reads registrations and writes lottery results",
+          "destinationId" : "11",
+          "id" : "33",
+          "sourceId" : "10",
+          "tags" : "Relationship",
+          "technology" : "SQL"
+        }, {
+          "description" : "Asks the app to push the lottery results",
+          "destinationId" : "12",
+          "id" : "34",
+          "sourceId" : "10",
+          "tags" : "Relationship",
+          "technology" : "HTTPS"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Node.js / scheduled job"
+      }, {
+        "description" : "Stores campaign settings, buyer registrations, lottery results and pickup stores.",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "Preorder Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "preorderDb"
+        },
+        "tags" : "Element,Container",
+        "technology" : "PostgreSQL"
+      } ],
+      "description" : "Lets buyers register for the toys they want, draws the winners when registration closes, and lets winners choose a pickup store.",
+      "documentation" : {
+        "decisions" : [ {
+          "content" : "# 1. Reuse the agent's existing real-name app as the registration entry point\n\nDate: 2026-10-07\n\n## Status\n\nAccepted\n\n## Context\n\nThe agent wants to launch preorder lotteries at the lowest possible cost. Buyers already use the agent's real-name app, which already handles login, real-name verification and push notifications.\nBuilding our own buyer app would mean rebuilding login and real-name verification, going through app-store review, and asking buyers to install yet another app.\n\n## Decision\n\nRegistration, result lookup and pickup-store selection all live inside the agent's existing real-name app. We provide only the API and build no buyer app.\nThe real-name app forwards each request together with the real-name credential it issued; we verify the credential and do not repeat real-name verification.\n\nWe considered but did not choose:\n- Building our own buyer app: the most flexible screens, but expensive, it requires rebuilding real-name verification, and buyers would have to install another app.\n\n## Consequences\n\n- Upside: no buyer app and no real-name verification to build, so development cost and time to launch drop sharply; buyers do not need another app.\n- Downside: the registration screens and our schedule are bound to the real-name app's release cycle, so we must coordinate with the agent's app team.\n- Downside: we depend on the real-name app's availability and credential format, and must adapt whenever the format changes.\n- Later: if the campaign rules become complex and need more flexible screens, reconsider building our own buyer app.\n",
+          "date" : "2026-10-07T00:00:00Z",
+          "format" : "Markdown",
+          "id" : "1",
+          "status" : "Accepted",
+          "title" : "Reuse the agent's existing real-name app as the registration entry point"
+        } ]
+      },
+      "id" : "3",
+      "name" : "Preorder Lottery System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "preorderSystem"
+      },
+      "relationships" : [ {
+        "description" : "Sends the winner list and pickup stores",
+        "destinationId" : "13",
+        "id" : "32",
+        "linkedRelationshipId" : "30",
+        "sourceId" : "3",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Asks the app to push the lottery results",
+        "destinationId" : "12",
+        "id" : "35",
+        "linkedRelationshipId" : "34",
+        "sourceId" : "3",
+        "technology" : "HTTPS"
+      } ],
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "The agent's existing app where buyers log in and complete real-name verification; the registration entry point and result push notifications both reuse it.",
+      "documentation" : { },
+      "id" : "12",
+      "name" : "Agent Real-name App",
+      "properties" : {
+        "structurizr.dsl.identifier" : "realnameApp"
+      },
+      "relationships" : [ {
+        "description" : "Forwards preorder requests (with the real-name credential)",
+        "destinationId" : "6",
+        "id" : "15",
+        "sourceId" : "12",
+        "tags" : "Relationship",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Forwards preorder requests (with the real-name credential)",
+        "destinationId" : "5",
+        "id" : "16",
+        "linkedRelationshipId" : "15",
+        "sourceId" : "12",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Forwards preorder requests (with the real-name credential)",
+        "destinationId" : "3",
+        "id" : "17",
+        "linkedRelationshipId" : "15",
+        "sourceId" : "12",
+        "technology" : "HTTPS"
+      } ],
+      "tags" : "Element,Software System,External System"
+    }, {
+      "description" : "The agent's existing store system, which checks the winner list and pickup store and hands over the goods.",
+      "documentation" : { },
+      "id" : "13",
+      "name" : "Store Pickup System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "storeSystem"
+      },
+      "tags" : "Element,Software System,External System"
+    } ]
+  },
+  "name" : "Toy Preorder Lottery Service",
+  "properties" : {
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.error" : "8",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "containerId" : "5",
+      "elements" : [ {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "Components",
+      "name" : "Component View: Preorder Lottery System - Preorder API",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "15"
+      }, {
+        "id" : "18"
+      }, {
+        "id" : "19"
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "30"
+      } ]
+    } ],
+    "configuration" : {
+      "lastSavedView" : "Deployment",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#999999",
+          "color" : "#ffffff",
+          "tag" : "External System"
+        } ]
+      },
+      "terminology" : { },
+      "themes" : [ "https://raw.githubusercontent.com/structurizr/themes/master/default/theme.json", "https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/amazon-web-services-2025.07/theme.json" ]
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "name" : "Container View: Preorder Lottery System",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "16"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "34"
+      } ],
+      "softwareSystemId" : "3"
+    } ],
+    "deploymentViews" : [ {
+      "description" : "Where each service actually runs in production.",
+      "dimensions" : {
+        "height" : 2121,
+        "width" : 3490
+      },
+      "elements" : [ {
+        "id" : "36",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "37",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "38",
+        "x" : 1849,
+        "y" : 250
+      }, {
+        "id" : "39",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "40",
+        "x" : 299,
+        "y" : 545
+      }, {
+        "id" : "41",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "42",
+        "x" : 2739,
+        "y" : 250
+      }, {
+        "id" : "45",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "46",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "47",
+        "x" : 299,
+        "y" : 1305
+      }, {
+        "id" : "49",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "51",
+        "x" : 1239,
+        "y" : 1305
+      }, {
+        "id" : "54",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "55",
+        "x" : 2739,
+        "y" : 1305
+      } ],
+      "environment" : "Production",
+      "key" : "Deployment",
+      "name" : "Deployment View: Production",
+      "order" : 5,
+      "relationships" : [ {
+        "id" : "43"
+      }, {
+        "id" : "44",
+        "vertices" : [ {
+          "x" : 850,
+          "y" : 785
+        }, {
+          "x" : 2530,
+          "y" : 785
+        } ]
+      }, {
+        "id" : "48",
+        "vertices" : [ {
+          "x" : 1209,
+          "y" : 602
+        }, {
+          "x" : 1709,
+          "y" : 392
+        } ]
+      }, {
+        "id" : "52",
+        "vertices" : [ {
+          "x" : 2074,
+          "y" : 1290
+        } ]
+      }, {
+        "id" : "53",
+        "vertices" : [ {
+          "x" : 799,
+          "y" : 978
+        }, {
+          "x" : 1189,
+          "y" : 978
+        } ]
+      }, {
+        "id" : "56",
+        "vertices" : [ {
+          "x" : 2349,
+          "y" : 677
+        }, {
+          "x" : 2519,
+          "y" : 978
+        }, {
+          "x" : 2689,
+          "y" : 978
+        } ]
+      } ]
+    } ],
+    "dynamicViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "The full flow of a preorder campaign, from setup and registration through the lottery to pickup stores.",
+      "elementId" : "3",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "PreorderFlow",
+      "name" : "Dynamic View: Preorder Lottery System",
+      "order" : 4,
+      "relationships" : [ {
+        "description" : "1. Operator sets the campaign period and per-buyer entry limit",
+        "id" : "22",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Buyer registers for toys during the campaign",
+        "id" : "14",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Forwards the registration (with real-name credential)",
+        "id" : "16",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Checks period and limit, saves the registration",
+        "id" : "27",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. At closing, reads registrations, draws, saves results",
+        "id" : "33",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Asks the app to push the results",
+        "id" : "34",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. A winning buyer chooses a pickup store",
+        "id" : "14",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Forwards the store choice (with real-name credential)",
+        "id" : "16",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Sends the winner list and pickup stores",
+        "id" : "31",
+        "order" : "9",
+        "response" : false
+      } ]
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "name" : "System Context View: Preorder Lottery System",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "35"
+      } ],
+      "softwareSystemId" : "3"
+    } ]
+  }
+}
