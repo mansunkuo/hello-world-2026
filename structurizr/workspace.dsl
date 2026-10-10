@@ -70,6 +70,10 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
     }
 
     views {
+        systemLandscape "SystemLandscape" {
+            include *
+            autoLayout lr
+        }
         systemContext preorderSystem "SystemContext" {
             include *
             include buyer
@@ -98,7 +102,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         }
         deployment * "Production" "Deployment" "Where each service actually runs in production." {
             include *
-            autoLayout lr
         }
         styles {
             element "External System" {
