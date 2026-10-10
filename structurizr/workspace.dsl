@@ -32,6 +32,37 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         pickupService -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
         lotteryJob -> preorderDb "Reads registrations and writes lottery results" "SQL"
         lotteryJob -> realnameApp "Asks the app to push the lottery results" "HTTPS"
+
+        production = deploymentEnvironment "Production" {
+            cloud = deploymentNode "Cloud Region" "Cloud services that we run ourselves." "AWS ap-northeast-1" {
+                tags "Amazon Web Services - Region"
+                ecs = deploymentNode "ECS Fargate" "Runs the Preorder API in containers without managing servers." "AWS Fargate" {
+                    tags "Amazon Web Services - Fargate"
+                    apiInstance = containerInstance preorderApi
+                }
+                scheduler = deploymentNode "EventBridge Scheduled Task" "Triggers the lottery job at the campaign's closing time." "AWS EventBridge + Fargate task" {
+                    tags "Amazon Web Services - EventBridge"
+                    jobInstance = containerInstance lotteryJob
+                }
+                rds = deploymentNode "RDS for PostgreSQL" "A managed relational database in a single availability zone to save cost." "PostgreSQL 16" {
+                    tags "Amazon Web Services - RDS"
+                    dbInstance = containerInstance preorderDb
+                }
+            }
+            office = deploymentNode "Agent Office" "Where the operators work." "Office network" {
+                browser = deploymentNode "Operator PC" "Opens the admin web in a browser." "Web browser" {
+                    adminInstance = containerInstance adminWeb
+                }
+            }
+            agentEnv = deploymentNode "Agent Existing Systems" "Existing systems that the agent operates itself; we only call them." "Agent data center" {
+                appHost = deploymentNode "Real-name App Service" "The agent's existing real-name app backend." "Existing system" {
+                    realnameInstance = softwareSystemInstance realnameApp
+                }
+                storeHost = deploymentNode "Store Pickup System Host" "The agent's existing store system." "Existing system" {
+                    storeInstance = softwareSystemInstance storeSystem
+                }
+            }
+        }
     }
 
     configuration {
@@ -65,12 +96,16 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
             preorderApi -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
             autoLayout lr
         }
+        deployment * "Production" "Deployment" "Where each service actually runs in production." {
+            include *
+            autoLayout lr
+        }
         styles {
             element "External System" {
                 background #999999
                 color #ffffff
             }
         }
-        theme https://raw.githubusercontent.com/structurizr/themes/master/default/theme.json
+        themes https://raw.githubusercontent.com/structurizr/themes/master/default/theme.json https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/amazon-web-services-2025.07/theme.json
     }
 }
