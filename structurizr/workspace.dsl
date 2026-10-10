@@ -53,6 +53,18 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
             include *
             autoLayout lr
         }
+        dynamic preorderSystem "PreorderFlow" "The full flow of a preorder campaign, from setup and registration through the lottery to pickup stores." {
+            operator -> adminWeb "Operator sets the campaign period and per-buyer entry limit"
+            buyer -> realnameApp "Buyer registers for toys during the campaign"
+            realnameApp -> preorderApi "Forwards the registration (with real-name credential)" "HTTPS"
+            preorderApi -> preorderDb "Checks period and limit, saves the registration" "SQL"
+            lotteryJob -> preorderDb "At closing, reads registrations, draws, saves results" "SQL"
+            lotteryJob -> realnameApp "Asks the app to push the results" "HTTPS"
+            buyer -> realnameApp "A winning buyer chooses a pickup store"
+            realnameApp -> preorderApi "Forwards the store choice (with real-name credential)" "HTTPS"
+            preorderApi -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
+            autoLayout lr
+        }
         styles {
             element "External System" {
                 background #999999
