@@ -5,6 +5,7 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         operator = person "Operator" "The agent's operations staff, who set each campaign's period and the total number of toys each buyer may enter for."
 
         preorderSystem = softwareSystem "Preorder Lottery System" "Lets buyers register for the toys they want, draws the winners when registration closes, and lets winners choose a pickup store." {
+            !adrs adrs
             adminWeb = container "Admin Web" "Lets operators set a campaign's period, each buyer's total entry limit, the toys open for registration and the pickup stores." "React / Web browser"
             preorderApi = container "Preorder API" "Receives registrations and pickup-store choices forwarded by the real-name app, and lets the admin web read and write campaign settings." "Node.js / Express REST API" {
                 authGuard = component "Credential Guard" "Verifies the real-name credential issued by the real-name app (signature and expiry) and rejects buyer requests that fail." "TypeScript Middleware"
