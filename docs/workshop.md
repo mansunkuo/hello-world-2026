@@ -61,6 +61,7 @@ C4 不是「畫五張圖」，而是**依序回答幾個問題，每一個都是
 | `make up` | 啟動互動式檢視器 <http://localhost:8080>（重新整理瀏覽器才會重載） |
 | `make validate` | 檢查檔案能不能解析 |
 | `make export` | 輸出可分享的靜態網站到 `structurizr/static-site/` |
+| `make export-saved` | 同上，但改用 `structurizr/workspace.json` 輸出，保留手動排版的位置 |
 | `make down` | 關閉檢視器 |
 
 ## 驗證只看這幾件事
@@ -897,7 +898,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 
 **3. 用滑鼠拖曳。** 建議：先拉開三個地點（代理商辦公室在左、雲端在中、代理商既有系統環境在右），再調整機器與實例，讓線不交錯。
 
-**4. 位置會自動存進 `structurizr/workspace.json`**（DSL 描述「有什麼」，`workspace.json` 記錄「擺在哪」）。用 `git status` 確認它有變，然後 commit，這樣位置才會跟著版本走。
+**4. 位置會自動存進 `structurizr/workspace.json`**（DSL 描述「有什麼」，`workspace.json` 記錄「擺在哪」）。用 `git status` 確認它有變，然後 commit，這樣位置才會跟著版本走。之後要輸出靜態網站時，請用 **`make export-saved`** 取代 `make export`，位置才會被保留。
 
 ### 驗證
 
@@ -1139,8 +1140,9 @@ Accepted
 ## 收尾
 
 ```bash
-make validate   # 最後檢查
-make export     # 輸出到 structurizr/static-site/index.html
+make validate        # 最後檢查
+make export          # 輸出到 structurizr/static-site/index.html
+make export-saved   # 同上，但改用 structurizr/workspace.json，保留 Step 6 手動排版的位置
 ```
 
 打開靜態網站，依序點過五張圖。它們彼此一致，因為是**同一個 model** 的五種畫法 —— 這種一致性才是 C4 真正的回報。

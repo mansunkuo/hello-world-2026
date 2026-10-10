@@ -61,6 +61,7 @@ paste the prompt into opencode  →  the agent validates and shows the new diagr
 | `make up` | Start the interactive viewer at <http://localhost:8080> (reload the browser to pick up changes) |
 | `make validate` | Check that the file parses |
 | `make export` | Export a shareable static site to `structurizr/static-site/` |
+| `make export-saved` | Same, but exports from `structurizr/workspace.json`, so your manually saved layout is kept |
 | `make down` | Stop the viewer |
 
 ## What We Verify
@@ -897,7 +898,7 @@ In structurizr/workspace.dsl, remove autoLayout from the "Deployment" view. Leav
 
 **3. Drag with the mouse.** Suggestion: first pull the three locations apart (Agent Office on the left, Cloud Region in the middle, Agent Existing Systems on the right), then adjust the machines and instances so lines don't cross.
 
-**4. Positions are saved automatically into `structurizr/workspace.json`** (the DSL describes "what exists", `workspace.json` records "where it sits"). Check with `git status` that it changed, then commit it, so the positions travel with the version.
+**4. Positions are saved automatically into `structurizr/workspace.json`** (the DSL describes "what exists", `workspace.json` records "where it sits"). Check with `git status` that it changed, then commit it, so the positions travel with the version. To export the static site with these positions, use **`make export-saved`** instead of `make export`.
 
 ### Verify
 
@@ -1139,8 +1140,9 @@ We considered but did not choose:
 ## Wrap-up
 
 ```bash
-make validate   # final check
-make export     # export to structurizr/static-site/index.html
+make validate        # final check
+make export          # export to structurizr/static-site/index.html
+make export-saved   # same, but from structurizr/workspace.json, keeping your Step 6 manual layout
 ```
 
 Open the static site and click through the five diagrams. They are consistent because they are five ways of drawing **one model**; that consistency is the real payoff of C4.

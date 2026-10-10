@@ -5,9 +5,7 @@
   "description" : "C4 Workshop",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedAgent" : "structurizr/diagrams/3c21dde5-606d-4745-8d87-cf88cc234db5",
-  "lastModifiedDate" : "2026-10-10T16:16:03Z",
-  "lastModifiedUser" : "283850066",
+  "lastModifiedDate" : "2026-10-10T16:49:04Z",
   "model" : {
     "deploymentNodes" : [ {
       "children" : [ {
@@ -515,9 +513,9 @@
   },
   "name" : "Toy Preorder Lottery Service",
   "properties" : {
+    "structurizr.inspection.error" : "8",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
-    "structurizr.inspection.error" : "8",
     "structurizr.inspection.warning" : "0"
   },
   "views" : {
@@ -591,7 +589,6 @@
     } ],
     "configuration" : {
       "lastSavedView" : "Deployment",
-      "metadataSymbols" : "SquareBrackets",
       "styles" : {
         "elements" : [ {
           "background" : "#999999",
@@ -834,47 +831,47 @@
       "name" : "Dynamic View: Preorder Lottery System",
       "order" : 4,
       "relationships" : [ {
-        "description" : "1. Operator sets the campaign period and per-buyer entry limit",
+        "description" : "Operator sets the campaign period and per-buyer entry limit",
         "id" : "22",
         "order" : "1",
         "response" : false
       }, {
-        "description" : "2. Buyer registers for toys during the campaign",
+        "description" : "Buyer registers for toys during the campaign",
         "id" : "14",
         "order" : "2",
         "response" : false
       }, {
-        "description" : "3. Forwards the registration (with real-name credential)",
+        "description" : "Forwards the registration (with real-name credential)",
         "id" : "16",
         "order" : "3",
         "response" : false
       }, {
-        "description" : "4. Checks period and limit, saves the registration",
+        "description" : "Checks period and limit, saves the registration",
         "id" : "27",
         "order" : "4",
         "response" : false
       }, {
-        "description" : "5. At closing, reads registrations, draws, saves results",
+        "description" : "At closing, reads registrations, draws, saves results",
         "id" : "33",
         "order" : "5",
         "response" : false
       }, {
-        "description" : "6. Asks the app to push the results",
+        "description" : "Asks the app to push the results",
         "id" : "34",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. A winning buyer chooses a pickup store",
+        "description" : "A winning buyer chooses a pickup store",
         "id" : "14",
         "order" : "7",
         "response" : false
       }, {
-        "description" : "8. Forwards the store choice (with real-name credential)",
+        "description" : "Forwards the store choice (with real-name credential)",
         "id" : "16",
         "order" : "8",
         "response" : false
       }, {
-        "description" : "9. Sends the winner list and pickup stores",
+        "description" : "Sends the winner list and pickup stores",
         "id" : "31",
         "order" : "9",
         "response" : false
