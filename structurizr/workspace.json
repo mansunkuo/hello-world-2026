@@ -5,7 +5,7 @@
   "description" : "C4 Workshop",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2026-10-10T16:49:04Z",
+  "lastModifiedDate" : "2026-10-10T17:52:00Z",
   "model" : {
     "deploymentNodes" : [ {
       "children" : [ {
@@ -564,7 +564,7 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Components",
       "name" : "Component View: Preorder Lottery System - Preorder API",
-      "order" : 3,
+      "order" : 4,
       "relationships" : [ {
         "id" : "15"
       }, {
@@ -643,7 +643,7 @@
       "externalSoftwareSystemBoundariesVisible" : false,
       "key" : "Containers",
       "name" : "Container View: Preorder Lottery System",
-      "order" : 2,
+      "order" : 3,
       "relationships" : [ {
         "id" : "14"
       }, {
@@ -733,7 +733,7 @@
       "environment" : "Production",
       "key" : "Deployment",
       "name" : "Deployment View: Production",
-      "order" : 5,
+      "order" : 6,
       "relationships" : [ {
         "id" : "43"
       }, {
@@ -829,7 +829,7 @@
       "externalBoundariesVisible" : false,
       "key" : "PreorderFlow",
       "name" : "Dynamic View: Preorder Lottery System",
-      "order" : 4,
+      "order" : 5,
       "relationships" : [ {
         "description" : "Operator sets the campaign period and per-buyer entry limit",
         "id" : "22",
@@ -909,7 +909,7 @@
       "enterpriseBoundaryVisible" : true,
       "key" : "SystemContext",
       "name" : "System Context View: Preorder Lottery System",
-      "order" : 1,
+      "order" : 2,
       "relationships" : [ {
         "id" : "14"
       }, {
@@ -922,6 +922,51 @@
         "id" : "35"
       } ],
       "softwareSystemId" : "3"
+    } ],
+    "systemLandscapeViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemLandscape",
+      "name" : "System Landscape View",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "35"
+      } ]
     } ]
   }
 }

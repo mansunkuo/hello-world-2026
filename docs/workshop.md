@@ -1,6 +1,6 @@
 # C4 架構工作坊：玩具預購抽選服務
 
-[C4 Model](https://c4model.com) 的動手實作。你會替**代理商的玩具預購抽選服務**建模：六個步驟，得到五張彼此一致、寫在同一個文字檔裡的圖，再學一次手動排版；最後把一個關鍵決策寫成 ADR（架構決策記錄）。
+[C4 Model](https://c4model.com) 的動手實作。你會替**代理商的玩具預購抽選服務**建模：六個步驟，得到六張彼此一致、寫在同一個文字檔裡的圖，再學一次手動排版；最後把一個關鍵決策寫成 ADR（架構決策記錄）。
 
 你負責描述每一張圖「該說什麼」，**opencode** 負責寫 [Structurizr DSL](https://docs.structurizr.com/dsl/language) 並自我檢查。你不需要記語法，但一定會讀到它，所以文末附了速查表和疑難排解。
 
@@ -25,7 +25,7 @@
 - [Step 3：打開 API](#step-3打開-api)
 - [Step 4：一場預購活動的順序](#step-4一場預購活動的順序)
 - [Step 5：每個東西跑在哪裡](#step-5每個東西跑在哪裡)
-- [Step 6：拿掉 autoLayout，自己排](#step-6拿掉-autolayout自己排)
+- [Step 6：加一張 System Landscape，自己排](#step-6加一張-system-landscape自己排)
 - [ADR：把「為什麼」寫下來](#adr把為什麼寫下來)
 - [收尾](#收尾)
 - [疑難排解](#疑難排解)
@@ -36,7 +36,7 @@
 
 ## 六個步驟
 
-C4 不是「畫五張圖」，而是**依序回答幾個問題，每一個都是把前一張圖的某個方塊放大來看**。五張圖住在同一個檔案 `structurizr/workspace.dsl`，每一步只是往裡面加內容，不會重寫、也不會刪掉前面的圖。
+C4 不是「畫六張圖」，而是**依序回答幾個問題，每一個都是把前一張圖的某個方塊放大來看**。六張圖住在同一個檔案 `structurizr/workspace.dsl`，每一步只是往裡面加內容，不會重寫、也不會刪掉前面的圖。
 
 | Step | 圖 | 它回答的問題 |
 | --- | --- | --- |
@@ -72,7 +72,7 @@ C4 不是「畫五張圖」，而是**依序回答幾個問題，每一個都是
 | --- | --- | --- |
 | 檔案能解析 | 壞掉的檔案，後面什麼都做不了 | agent 回報 `validate` 拿到 `OK`（或自己跑 `make validate`） |
 | 沒有空白方塊 | 沒有說明的方塊教不了任何人任何事 | `inspect` 報告裡沒有「missing a description」 |
-| 前面的圖沒被改壞 | 五張圖是同一個 model 的不同視角 | 在導覽列把前面的圖點一遍，方塊與線沒變 |
+| 前面的圖沒被改壞 | 六張圖是同一個 model 的不同視角 | 在導覽列把前面的圖點一遍，方塊與線沒變 |
 
 品質報告裡其他的抱怨（缺少協定、缺少文件）**可以忽略**：人與同一行程內的呼叫本來就沒有協定可填，文件超出這次範圍。「缺少決策記錄」會在最後的 ADR 單元處理，掛上之後這項抱怨應該會消失。
 
@@ -880,18 +880,20 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 
 ---
 
-## Step 6：拿掉 autoLayout，自己排
+## Step 6：加一張 System Landscape，自己排
 
 > 簡報前，你發現 Deployment 圖擠成一團、線互相壓過。Structurizr 的自動排版在巢狀越深、跨框的線越多時越容易亂。這時候**不要再叫 agent 調整**，直接拿掉 `autoLayout`，自己拖。
 
 **為什麼 Deployment 特別擠？** `autoLayout` 是把所有方塊先當成一張平面圖排好，再替每個巢狀的外框（地點、機器）畫上去；Deployment 圖的外框最多、最深，所以最容易互相壓到。（這是依 Structurizr 的排版方式做的判斷，請在現場拿掉 `autoLayout` 前後各看一次，確認它是不是原因。）
 
+**為什麼加一張 System Landscape？** 導覽列的圖**預設排序**是——見 [Sorting diagrams](https://docs.structurizr.com/ui/diagrams/sorting)：先依 scope（無 scope 的圖排最前面，System Landscape 屬於這一類），再依圖類型（system context → containers → components → dynamic → deployment）。因為 System Landscape 是無 scope 的圖，它會排在導覽列最上方，成為讀者的**入口**：一頁看得到**全部**系統（我們的與代理商的）以及它們怎麼互相溝通，然後再放大進到我們自己的系統。
+
 ### 做法
 
-**1. 請 agent 拿掉那一行（只這一張圖）：**
+**1. 請 agent 加 System Landscape、拿掉那一行：**
 
 ```text
-把 structurizr/workspace.dsl 裡 "Deployment" 這張圖的 autoLayout 拿掉。其他圖維持原樣，其他都不要動。
+在 structurizr/workspace.dsl 的 views 區塊最前面新增一張 System Landscape 圖（systemLandscape "SystemLandscape" { include *; autoLayout lr }），再把 "Deployment" 這張圖的 autoLayout 拿掉。其他都不要動。
 ```
 
 **2. 重新整理 <http://localhost:8080>，打開 Deployment。** 沒有排版資訊時，方塊可能全部疊在一起，這是正常的，從這裡開始自己拖。
@@ -902,7 +904,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 
 ### 驗證
 
-- [ ] `git diff structurizr/workspace.dsl` **只少了 Deployment 區塊裡的一行 `autoLayout lr`**；其他四張圖仍然是自動排版。
+- [ ] `git diff structurizr/workspace.dsl` 顯示 **在 `views {` 最上方新增了一張 System Landscape，且 Deployment 區塊少了一行 `autoLayout lr`**；其他圖仍然自動排版。
 - [ ] `git status` 出現 **`structurizr/workspace.json` 有變更**。
 - [ ] 重新整理瀏覽器，**位置還在**。
 
@@ -916,7 +918,12 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 <summary>參考解答：這一步改了什麼（diff）</summary>
 
 ```diff
-@@ -100,3 +100,2 @@
+@@ -70,6 +70,10 @@
++        systemLandscape "SystemLandscape" {
++            include *
++            autoLayout lr
++        }
+@@ -98,7 +102,6 @@
              include *
 -            autoLayout lr
          }
@@ -1000,6 +1007,10 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
     }
 
     views {
+        systemLandscape "SystemLandscape" {
+            include *
+            autoLayout lr
+        }
         systemContext preorderSystem "SystemContext" {
             include *
             include buyer
@@ -1145,7 +1156,7 @@ make export          # 輸出到 structurizr/static-site/index.html
 make export-saved   # 同上，但改用 structurizr/workspace.json，保留 Step 6 手動排版的位置
 ```
 
-打開靜態網站，依序點過五張圖。它們彼此一致，因為是**同一個 model** 的五種畫法 —— 這種一致性才是 C4 真正的回報。
+打開靜態網站，依序點過六張圖。它們彼此一致，因為是**同一個 model** 的六種畫法 —— 這種一致性才是 C4 真正的回報。
 
 <details>
 <summary>參考解答：最終完整 <code>workspace.dsl</code>（含 ADR）</summary>
@@ -1224,6 +1235,10 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
     }
 
     views {
+        systemLandscape "SystemLandscape" {
+            include *
+            autoLayout lr
+        }
         systemContext preorderSystem "SystemContext" {
             include *
             include buyer

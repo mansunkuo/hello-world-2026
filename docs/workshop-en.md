@@ -1,6 +1,6 @@
 # C4 Architecture Workshop: Toy Preorder Lottery Service
 
-A hands-on [C4 Model](https://c4model.com) exercise. You will model **an agent's toy preorder lottery service** in six steps and end up with five consistent diagrams written in one text file, then learn manual layout. Finally you will write one key decision up as an ADR (Architecture Decision Record).
+A hands-on [C4 Model](https://c4model.com) exercise. You will model **an agent's toy preorder lottery service** in six steps and end up with six consistent diagrams written in one text file, then learn manual layout. Finally you will write one key decision up as an ADR (Architecture Decision Record).
 
 You describe what each diagram should say; **opencode** writes the [Structurizr DSL](https://docs.structurizr.com/dsl/language) and checks its own work. You don't need to memorize the syntax, but you will read it, so a cheat sheet and troubleshooting table are at the end.
 
@@ -25,7 +25,7 @@ You describe what each diagram should say; **opencode** writes the [Structurizr 
 - [Step 3: Open Up the API](#step-3-open-up-the-api)
 - [Step 4: The Sequence of One Campaign](#step-4-the-sequence-of-one-campaign)
 - [Step 5: Where Does Everything Run?](#step-5-where-does-everything-run)
-- [Step 6: Remove autoLayout and Arrange It Yourself](#step-6-remove-autolayout-and-arrange-it-yourself)
+- [Step 6: Add a System Landscape and Arrange It Yourself](#step-6-add-a-system-landscape-and-arrange-it-yourself)
 - [ADR: Write Down the "Why"](#adr-write-down-the-why)
 - [Wrap-up](#wrap-up)
 - [Troubleshooting](#troubleshooting)
@@ -36,7 +36,7 @@ You describe what each diagram should say; **opencode** writes the [Structurizr 
 
 ## The Six Steps
 
-C4 is not "draw five diagrams". It is **answering a series of questions in order, where each one zooms into a box of the previous diagram**. The five diagrams live in one file, `structurizr/workspace.dsl`. Each step only adds to it; you never rewrite it or delete earlier diagrams.
+C4 is not "draw six diagrams". It is **answering a series of questions in order, where each one zooms into a box of the previous diagram**. The six diagrams live in one file, `structurizr/workspace.dsl`. Each step only adds to it; you never rewrite it or delete earlier diagrams.
 
 | Step | Diagram | The question it answers |
 | --- | --- | --- |
@@ -72,7 +72,7 @@ Each step's "Verify" section has only 2 or 3 items, on top of these three baseli
 | --- | --- | --- |
 | The file parses | A broken file blocks everything after it | The agent reports `validate` returned `OK` (or run `make validate` yourself) |
 | No blank boxes | A box without a description teaches nobody anything | The `inspect` report has no "missing a description" |
-| Earlier diagrams are not broken | The five diagrams are different views of one model | Click through the earlier diagrams in the navigation; their boxes and lines are unchanged |
+| Earlier diagrams are not broken | The six diagrams are different views of one model | Click through the earlier diagrams in the navigation; their boxes and lines are unchanged |
 
 You can **ignore** the other complaints in the quality report (missing protocol, missing documentation): people and in-process calls have no protocol to fill in, and documentation is out of scope. "Missing decisions" is handled in the ADR section at the end; once an ADR is attached, that complaint should disappear.
 
@@ -880,18 +880,20 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 
 ---
 
-## Step 6: Remove autoLayout and Arrange It Yourself
+## Step 6: Add a System Landscape and Arrange It Yourself
 
 > Before a presentation you notice the Deployment diagram is a mess, with lines running over each other. Structurizr's automatic layout gets worse the deeper the nesting and the more lines cross boundaries. **Don't ask the agent to fix it.** Remove `autoLayout` and drag things yourself.
 
 **Why is Deployment especially bad?** `autoLayout` first lays all boxes out as one flat graph, then draws each nested frame (locations, machines) around them. The Deployment diagram has the most and deepest frames, so they overlap most easily. (This is our reading of how Structurizr lays things out; please look at the diagram before and after removing `autoLayout` to confirm that it really is the cause.)
 
+**Why add a System Landscape view?** The diagram navigation sorts views by default (see [Sorting diagrams](https://docs.structurizr.com/ui/diagrams/sorting)): first by scope — unscoped diagrams like the System Landscape come first — then, per software system, by type: system context → containers → components → dynamic → deployment. Because the System Landscape is unscoped it lands at the top of the list, so it becomes the reader's entry point: one page that shows **all** the systems (ours and the agent's) and how they talk to each other, before zooming into our own system.
+
 ### How
 
-**1. Ask the agent to remove that line (this one view only):**
+**1. Ask the agent to add the System Landscape view and remove that line:**
 
 ```text
-In structurizr/workspace.dsl, remove autoLayout from the "Deployment" view. Leave the other views as they are and do not change anything else.
+In structurizr/workspace.dsl, add a System Landscape view as the first view in the views block (systemLandscape "SystemLandscape" { include *; autoLayout lr }), then remove autoLayout from the "Deployment" view. Do not change anything else.
 ```
 
 **2. Reload <http://localhost:8080> and open Deployment.** With no layout information the boxes may be stacked on top of each other. That is normal; from here on you drag them yourself.
@@ -902,7 +904,7 @@ In structurizr/workspace.dsl, remove autoLayout from the "Deployment" view. Leav
 
 ### Verify
 
-- [ ] `git diff structurizr/workspace.dsl` shows **only one `autoLayout lr` line removed from the Deployment block**; the other four diagrams still use automatic layout.
+- [ ] `git diff structurizr/workspace.dsl` shows **a System Landscape view added at the top of `views {` and one `autoLayout lr` line removed from the Deployment block**; the other views still use automatic layout.
 - [ ] `git status` shows **`structurizr/workspace.json` changed**.
 - [ ] After reloading the browser, **the positions are still there**.
 
@@ -916,7 +918,12 @@ In structurizr/workspace.dsl, remove autoLayout from the "Deployment" view. Leav
 <summary>Reference answer: what changed in this step (diff)</summary>
 
 ```diff
-@@ -100,3 +100,2 @@
+@@ -70,6 +70,10 @@
++        systemLandscape "SystemLandscape" {
++            include *
++            autoLayout lr
++        }
+@@ -98,7 +102,6 @@
              include *
 -            autoLayout lr
          }
@@ -1000,6 +1007,10 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
     }
 
     views {
+        systemLandscape "SystemLandscape" {
+            include *
+            autoLayout lr
+        }
         systemContext preorderSystem "SystemContext" {
             include *
             include buyer
@@ -1145,7 +1156,7 @@ make export          # export to structurizr/static-site/index.html
 make export-saved   # same, but from structurizr/workspace.json, keeping your Step 6 manual layout
 ```
 
-Open the static site and click through the five diagrams. They are consistent because they are five ways of drawing **one model**; that consistency is the real payoff of C4.
+Open the static site and click through the six diagrams. They are consistent because they are six ways of drawing **one model**; that consistency is the real payoff of C4.
 
 <details>
 <summary>Reference answer: final complete <code>workspace.dsl</code> (with the ADR)</summary>
@@ -1224,6 +1235,10 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
     }
 
     views {
+        systemLandscape "SystemLandscape" {
+            include *
+            autoLayout lr
+        }
         systemContext preorderSystem "SystemContext" {
             include *
             include buyer
