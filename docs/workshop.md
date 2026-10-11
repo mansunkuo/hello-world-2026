@@ -113,7 +113,7 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 ## Syntax
 - Include `configuration { scope softwaresystem }`.
 - The opening `{` goes at the end of the declaration line, never on its own line.
-- View keys may only contain `a-zA-Z0-9_-`. Titles may be in any language (Chinese is fine).
+- View keys may only contain `a-zA-Z0-9_-`. Titles may be in any language.
 - `autoLayout` always needs a direction: `autoLayout lr`.
 - A system context or container view with `include *` only shows elements directly connected to the system in scope. If a step says a person must appear even though they reach the system through an external system, add `include <person>` explicitly.
 
@@ -121,9 +121,8 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 - Every element (person, softwareSystem, container, component, deploymentNode) needs a one-sentence description of its responsibility.
 - Containers and components need a technology.
 - Write relationships as verb phrases. For machine-to-machine relationships, put the protocol in the last quoted string: `a -> b "verb phrase" "HTTPS"`. Never put the protocol inside the verb phrase.
-- People and in-process calls have no protocol; leave it out.
-- Systems we do not own get the tag `"外部系統"` (keep this exact tag).
-- In the first step, define one `styles` entry for the tag `"外部系統"` only (`#999999`, white text). The base colors for people, systems, containers and components come from the theme.
+- Systems we do not own get the tag `"External System"` (keep this exact tag).
+- In the first step, define one `styles` entry for the tag `"External System"` only (`#999999`, white text). The base colors for people, systems, containers and components come from the theme.
 - Reference themes by their raw GitHub URL only. Never use `theme default`, never use a bare theme name (it does not resolve in this setup), and never create theme files.
 - Default theme (base colors for people, systems, containers and components): `theme https://raw.githubusercontent.com/structurizr/themes/master/default/theme.json`
 - Only in the deployment step, switch to `themes <default theme URL> <cloud theme URL>` using the cloud provider the user chose. Cloud theme URLs follow `https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/<directory>/theme.json`, where `<directory>` is `amazon-web-services-2025.07`, `microsoft-azure-2025.11`, `google-cloud-platform-2025.09`, `oracle-cloud-infrastructure-2023.04` or `kubernetes`. Pin to the release tag, never `main`.
