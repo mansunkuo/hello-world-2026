@@ -19,7 +19,6 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 - Every element (person, softwareSystem, container, component, deploymentNode) needs a one-sentence description of its responsibility.
 - Containers and components need a technology.
 - Write relationships as verb phrases. For machine-to-machine relationships, put the protocol in the last quoted string: `a -> b "verb phrase" "HTTPS"`. Never put the protocol inside the verb phrase.
-- People and in-process calls have no protocol; leave it out.
 - Systems we do not own get the tag `"External System"` (keep this exact tag).
 - In the first step, define one `styles` entry for the tag `"External System"` only (`#999999`, white text). The base colors for people, systems, containers and components come from the theme.
 - Reference themes by their raw GitHub URL only. Never use `theme default`, never use a bare theme name (it does not resolve in this setup), and never create theme files.
