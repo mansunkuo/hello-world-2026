@@ -227,8 +227,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
         operator = person "營運人員" "代理商的營運人員，設定預購活動的期間與每人可抽選的總量。"
 
         preorderSystem = softwareSystem "預購抽選系統" "讓買家登記想抽選的玩具，在截止時抽選出結果，並讓抽中的買家選擇取貨門市。"
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> preorderSystem "轉交預購請求（已通過實名驗證）"
@@ -248,7 +248,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             autoLayout lr
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
@@ -306,7 +306,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 +            lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
 +            preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
 +        }
-         realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
+         realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
 @@ -11,6 +16,9 @@
          buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
 -        realnameApp -> preorderSystem "轉交預購請求（已通過實名驗證）"
@@ -349,8 +349,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
             preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
         }
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> preorderApi "轉交預購請求（帶實名驗證憑證）" "HTTPS"
@@ -378,7 +378,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             autoLayout lr
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
@@ -487,8 +487,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
             preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
         }
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> authGuard "轉交預購請求（帶實名驗證憑證）" "HTTPS"
@@ -526,7 +526,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             autoLayout lr
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
@@ -602,8 +602,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
             preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
         }
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> authGuard "轉交預購請求（帶實名驗證憑證）" "HTTPS"
@@ -653,7 +653,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             autoLayout lr
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
@@ -772,8 +772,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
             preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
         }
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> authGuard "轉交預購請求（帶實名驗證憑證）" "HTTPS"
@@ -858,7 +858,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             autoLayout lr
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
@@ -944,8 +944,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
             preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
         }
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> authGuard "轉交預購請求（帶實名驗證憑證）" "HTTPS"
@@ -1033,7 +1033,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             include *
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
@@ -1172,8 +1172,8 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             lotteryJob = container "抽選排程" "活動截止時讀取所有登記，依規則抽選並寫入結果，再請實名制 App 推播通知。" "Node.js / 排程工作"
             preorderDb = container "預購資料庫" "儲存活動設定、買家登記、抽選結果與取貨門市。" "PostgreSQL"
         }
-        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "外部系統"
-        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "外部系統"
+        realnameApp = softwareSystem "代理商實名制 App" "代理商既有的 App，買家在這裡登入並完成實名驗證；預購登記入口與結果推播都借用它。" "External System"
+        storeSystem = softwareSystem "門市取貨系統" "代理商既有的門市系統，依抽中名單與取貨門市核對並交付商品。" "External System"
 
         buyer -> realnameApp "在 App 內登記預購、查看結果、選擇取貨門市"
         realnameApp -> authGuard "轉交預購請求（帶實名驗證憑證）" "HTTPS"
@@ -1261,7 +1261,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
             include *
         }
         styles {
-            element "外部系統" {
+            element "External System" {
                 background #999999
                 color #ffffff
             }
