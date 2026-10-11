@@ -205,8 +205,8 @@ Read structurizr/workspace.dsl, replace the sample with a Level 1 system context
 Scenario: an agent wants to run a toy preorder lottery at the lowest possible cost. Operators set each campaign's period and the total number of toys each buyer may enter for; buyers register for the toys they want in the agent's existing real-name app (the app handles real-name verification); when the campaign closes, the system draws the winners and notifies them through the app's push notifications; winners then choose which store to pick up from, and we send the winner list and pickup stores to the agent's existing store pickup system.
 We don't build a buyer app and we don't build the store system. The buyer does not connect directly to our system, but must appear in the diagram (they use our features through the real-name app).
 
-External systems: the agent's real-name app and the store pickup system already exist, they are not ours. Tag them "External System" and show them in grey, to distinguish them from our own system (blue).
-Make this workspace use the official Structurizr default theme, referenced by URL: https://raw.githubusercontent.com/structurizr/themes/master/default/theme.json (it provides the base colors for people and systems). Do not use theme default.
+The agent's real-name app and the store pickup system already exist, they are not ours.
+Use the official default theme.
 Do not mention any technology names at this level.
 ```
 
@@ -270,7 +270,7 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 ### Prompt
 
 ```text
-Read structurizr/workspace.dsl and add a Level 2 container diagram named "Containers". Do not touch SystemContext.
+Read structurizr/workspace.dsl and add a Level 2 container diagram named "Containers".
 
 Open up "Preorder Lottery System" into 4 independently deployable containers:
   Admin Web ([your preferred frontend framework, e.g. React], used by operators to set up campaigns)
@@ -278,7 +278,7 @@ Open up "Preorder Lottery System" into 4 independently deployable containers:
   Lottery Job (a scheduled job in [the same backend language]; when a campaign closes it draws the winners and asks the real-name app to push the results)
   Preorder Database ([a database you know, e.g. PostgreSQL])
 
-Move the relationships that used to point at the whole "Preorder Lottery System" onto the containers that really own them, and label machine-to-machine relationships with the protocol.
+Move the relationships that used to point at the whole "Preorder Lottery System" onto the containers that really own them.
 The real-name app and the store pickup system stay outside the system box; the buyer must still appear in the diagram.
 ```
 
@@ -400,7 +400,7 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 ### Prompt
 
 ```text
-Read structurizr/workspace.dsl and add a Level 3 component diagram named "Components". Do not touch the first two diagrams.
+Read structurizr/workspace.dsl and add a Level 3 component diagram named "Components".
 
 Open up "Preorder API" into 4 components:
   Credential Guard (verifies the real-name credential issued by the real-name app)
@@ -549,7 +549,7 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 
 ```text
 Read structurizr/workspace.dsl and add a dynamic view named "PreorderFlow": what happens, in order, during a whole preorder campaign — the operator sets up the campaign, buyers register during the period, the lottery runs at closing, results are pushed, winning buyers choose a pickup store, all the way until the store pickup system receives the list.
-Use only elements that already exist in the file and do not change the model at all; number the arrows consecutively from 1 in time order.
+Number the arrows consecutively from 1 in time order.
 ```
 
 ### Verify
@@ -681,14 +681,7 @@ Read structurizr/workspace.dsl and add a deployment view named "Deployment" (env
   Agent Office: an Operator PC that runs the Admin Web in a browser
   Agent Existing Systems: a Real-name App Service that runs the Agent Real-name App, and a Store Pickup System Host that runs the Store Pickup System
 
-All three locations must appear in the same view, and every location and machine needs a one-sentence description.
-Traffic between containers appears automatically from the model, so do not redraw it and do not add any machine-to-machine relationships.
-Then attach that cloud's prebuilt Structurizr theme, always by URL, together with the default theme:
-  AWS: https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/amazon-web-services-2025.07/theme.json
-  Azure: https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/microsoft-azure-2025.11/theme.json
-  GCP: https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/google-cloud-platform-2025.09/theme.json
-and tag the cloud nodes with the icon tags the theme provides (tag names can be looked up at https://playground.structurizr.com/themes). Keep the original default theme.
-Do not touch the other views or the model.
+All three locations must appear in the same view.
 ```
 
 ### Verify
@@ -893,7 +886,7 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 **1. Ask the agent to add the System Landscape view and remove that line:**
 
 ```text
-In structurizr/workspace.dsl, add a System Landscape view as the first view in the views block (systemLandscape "SystemLandscape" { include *; autoLayout lr }), then remove autoLayout from the "Deployment" view. Do not change anything else.
+In structurizr/workspace.dsl, add a System Landscape view as the first view in the views block (systemLandscape "SystemLandscape" { include *; autoLayout lr }), then remove autoLayout from the "Deployment" view.
 ```
 
 **2. Reload <http://localhost:8080> and open Deployment.** With no layout information the boxes may be stacked on top of each other. That is normal; from here on you drag them yourself.
@@ -1079,14 +1072,14 @@ Apart from the title and date, an ADR has only four parts:
 Look back at the ADR candidates you noted in each step, pick one you have something to say about, and fill in the [ ] parts:
 
 ```text
-Under structurizr/adrs/, write an architecture decision record in adr-tools Markdown format (title, Date, Status, Context, Decision, Consequences), numbered 0001.
+Under structurizr/adrs/, write an architecture decision record numbered 0001.
 
 Decision: [the ADR candidate you picked, e.g. reuse the real-name app as the registration entry point instead of building a buyer app]
 Constraints at the time: [e.g. the agent wants the lowest cost, buyers already use the real-name app]
-What we considered but did not choose: [at least one alternative, and why it was not chosen]
+What we considered but did not choose: [alternative]
 
-Consequences must list both upsides and downsides, with at least one downside. Use short sentences, no long essays.
-Then attach this folder to "Preorder Lottery System" so the viewer shows the decision.
+Consequences must list the upsides and downsides. Use short sentences.
+Then attach this decision to "Preorder Lottery System".
 ```
 
 What the agent drafts is only a first draft: **replace the Context and the downsides with your team's real situation**, because only you know the constraints at the time.

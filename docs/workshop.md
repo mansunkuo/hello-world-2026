@@ -205,8 +205,8 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 情境：代理商要辦玩具預購抽選，希望用最小的成本做。營運人員設定每次預購活動的期間，以及每個買家可抽選的玩具總量；買家在代理商既有的實名制 App 裡登記想抽選的玩具（實名驗證由 App 負責）；截止時系統抽選出結果，並透過 App 推播通知；抽中的買家再選擇要去哪間門市領取，我們把抽中名單與取貨門市送給代理商既有的門市取貨系統。
 我們不做買家端 App，也不做門市系統。買家不直接連到我們的系統，但要出現在圖上（他是透過實名制 App 使用我們的功能）。
 
-外部系統：代理商實名制 App 和門市取貨系統是代理商既有的、不是我們的，請標記為「外部系統」，並用灰色顯示，和我們自己的系統（藍色）區分開。
-讓這個 workspace 使用 Structurizr 官方預設主題，用網址引用：https://raw.githubusercontent.com/structurizr/themes/master/default/theme.json（人與系統的基本顏色由它提供）。不要用 theme default。
+代理商實名制 App 和門市取貨系統是代理商既有的、不是我們的。
+使用官方預設主題。
 這一層不要出現任何技術名稱。
 ```
 
@@ -270,7 +270,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 ### Prompt
 
 ```text
-讀 structurizr/workspace.dsl，加一張 Level 2 容器圖，圖名 "Containers"。SystemContext 不要動。
+讀 structurizr/workspace.dsl，加一張 Level 2 容器圖，圖名 "Containers"。
 
 打開「預購抽選系統」，切成 4 個可獨立部署的 container：
   管理後台（【你喜歡的前端框架，例如 React】，營運人員設定活動用）
@@ -278,7 +278,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
   抽選排程（【同一套後端語言】的排程工作，活動截止時抽選，並請實名制 App 推播結果）
   預購資料庫（【你熟悉的資料庫，例如 PostgreSQL】）
 
-把原本指向「預購抽選系統」整體的連線，移到真正擁有它們的 container 上，機器對機器的連線要標協定。
+把原本指向「預購抽選系統」整體的連線，移到真正擁有它們的 container 上。
 實名制 App 和門市取貨系統留在系統盒子外面；買家仍然要出現在圖上。
 ```
 
@@ -400,7 +400,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 ### Prompt
 
 ```text
-讀 structurizr/workspace.dsl，加一張 Level 3 元件圖，圖名 "Components"。前兩張圖不要動。
+讀 structurizr/workspace.dsl，加一張 Level 3 元件圖，圖名 "Components"。
 
 打開「預購 API」，切成 4 個元件：
   憑證驗證中介層（驗證實名制 App 簽發的實名驗證憑證）
@@ -549,7 +549,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 
 ```text
 讀 structurizr/workspace.dsl，加一張動態圖 "PreorderFlow"：一場預購活動從頭到尾依序發生什麼事 —— 營運人員設定活動、買家在期間內登記、截止時抽選、推播結果、抽中的買家選擇取貨門市，一直到門市取貨系統收到名單。
-只能用檔案裡已經存在的元素，model 完全不要動；箭頭從 1 開始，依時間順序連續編號。
+箭頭從 1 開始，依時間順序連續編號。
 ```
 
 ### 驗證
@@ -681,14 +681,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
   代理商辦公室：營運人員電腦，用瀏覽器跑管理後台
   代理商既有系統環境：實名制 App 服務跑代理商實名制 App、門市取貨系統主機跑門市取貨系統
 
-三個地點都要出現在同一張圖裡，每個地點和機器都要有一句說明。
-container 之間的流量會從 model 自動出現，不用重複畫，也不需要補任何機器之間的連線。
-再掛上該雲端的 Structurizr 預建主題，一律用網址引用，並和預設主題並用：
-  AWS：https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/amazon-web-services-2025.07/theme.json
-  Azure：https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/microsoft-azure-2025.11/theme.json
-  GCP：https://raw.githubusercontent.com/structurizr/structurizr/v2026.09.19/structurizr-themes/google-cloud-platform-2025.09/theme.json
-並替雲端節點加上主題提供的圖示標籤（標籤名稱可在 https://playground.structurizr.com/themes 查到）。原本的預設主題要繼續保留。
-其他圖和 model 不要動。
+三個地點都要出現在同一張圖裡。
 ```
 
 ### 驗證
@@ -893,7 +886,7 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 **1. 請 agent 加 System Landscape、拿掉那一行：**
 
 ```text
-在 structurizr/workspace.dsl 的 views 區塊最前面新增一張 System Landscape 圖（systemLandscape "SystemLandscape" { include *; autoLayout lr }），再把 "Deployment" 這張圖的 autoLayout 拿掉。其他都不要動。
+在 structurizr/workspace.dsl 的 views 區塊最前面新增一張 System Landscape 圖（systemLandscape "SystemLandscape" { include *; autoLayout lr }），再把 "Deployment" 這張圖的 autoLayout 拿掉。
 ```
 
 **2. 重新整理 <http://localhost:8080>，打開 Deployment。** 沒有排版資訊時，方塊可能全部疊在一起，這是正常的，從這裡開始自己拖。
@@ -1079,14 +1072,14 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
 回頭看你在每一步記下的 ADR 候選，挑一個你有話想說的，填進【】：
 
 ```text
-在 structurizr/adrs/ 底下，用 adr-tools 的 Markdown 格式（標題、Date、Status、Context、Decision、Consequences）幫我寫一份架構決策記錄，編號 0001。
+在 structurizr/adrs/ 底下幫我寫一份架構決策記錄，編號 0001。
 
 決策：【你選的 ADR 候選，例如：預購登記入口借用實名制 App，不另做買家端 App】
 當時的限制：【例如：代理商要最小成本、買家已經在用實名制 App】
-我們考慮過、但沒選的：【至少一個替代方案，以及沒選的理由】
+我們考慮過、但沒選的：【替代方案】
 
-Consequences 要同時寫出好處和代價，至少一個代價。用簡短的句子，不要長篇大論。
-然後把這個資料夾掛到「預購抽選系統」上，讓檢視器看得到這份決策。
+Consequences 要寫出好處和代價。用簡短的句子。
+然後把這份決策掛到「預購抽選系統」上。
 ```
 
 agent 起草的只是初稿：**Context 和代價要換成你們團隊真正的情況**，因為只有你們知道當時的限制。
