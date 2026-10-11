@@ -45,7 +45,7 @@ C4 is not "draw six diagrams". It is **answering a series of questions in order,
 | 3 | Components | Where does a new business rule (e.g. campaign period, per-buyer limit) go? |
 | 4 | PreorderFlow (dynamic view) | What happens, in order, during a whole preorder campaign? |
 | 5 | Deployment | Where does everything actually run? |
-| 6 | (manual layout) | What do you do when the automatic layout turns into a mess? |
+| 6 | System Landscape (manual layout) | What do you do when the automatic layout turns into a mess? Where should the reader start? |
 | ADR | Decision record (text, no diagram) | Why did we decide this? What else did we consider? |
 
 Diagrams answer "what"; an ADR answers "**why**". Each step ends with one **ADR candidate**: a decision you just made in the diagram. **Don't discuss it now.** Jot down one line in your notes; at the end you will pick one and write it up as an ADR.
@@ -1339,6 +1339,7 @@ themes <default theme URL> <cloud theme URL>   // plus a cloud theme (icons)
 ## References
 
 - [C4 Model](https://c4model.com)
+- [opencode instructions (AGENTS.md)](https://opencode.ai/v2/docs/instructions)
 - [Structurizr MCP server](https://docs.structurizr.com/ai/mcp)
 - [Structurizr DSL language reference](https://docs.structurizr.com/dsl/language)
 - [Structurizr themes](https://docs.structurizr.com/server/diagrams/themes), the [theme browser](https://playground.structurizr.com/themes), and [UI documentation: Themes](https://docs.structurizr.com/ui/diagrams/themes)

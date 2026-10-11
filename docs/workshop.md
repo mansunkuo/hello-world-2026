@@ -45,7 +45,7 @@ C4 不是「畫六張圖」，而是**依序回答幾個問題，每一個都是
 | 3 | Components | 新的業務規則（例如活動期間、每人總量）該放進哪裡？ |
 | 4 | PreorderFlow（動態圖） | 一場預購活動從頭到尾依序發生什麼？ |
 | 5 | Deployment | 每個東西實際跑在哪裡？ |
-| 6 | （手動排版） | 自動排版擠成一團時怎麼辦？ |
+| 6 | System Landscape（手動排版） | 自動排版擠成一團時怎麼辦？讀者該從哪裡開始看？ |
 | ADR | 決策記錄（文字，不畫圖） | 當初為什麼這樣決定？還考慮過什麼？ |
 
 圖回答「是什麼」，ADR 回答「**為什麼**」。每個步驟結尾有一則 **ADR 候選**：那是你剛剛在圖上做下的一個決策。**現在不要討論**，只在筆記上記一行；最後挑一個寫成 ADR。
@@ -1339,6 +1339,7 @@ themes <預設主題網址> <雲端主題網址>         // 再加雲端主題�
 ## 參考資料
 
 - [C4 Model](https://c4model.com)
+- [opencode 指令與規則檔（AGENTS.md）](https://opencode.ai/v2/docs/instructions)
 - [Structurizr MCP server](https://docs.structurizr.com/ai/mcp)
 - [Structurizr DSL 語言參考](https://docs.structurizr.com/dsl/language)
 - [Structurizr 主題（Themes）](https://docs.structurizr.com/server/diagrams/themes)、[主題瀏覽器](https://playground.structurizr.com/themes)、[UI 說明：Themes](https://docs.structurizr.com/ui/diagrams/themes)
