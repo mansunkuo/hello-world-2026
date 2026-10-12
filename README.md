@@ -1,4 +1,7 @@
-# Structurizr Template
+# AI-Driven Architecture: Structurizr × OpenCode
+This is a hands-on lab on Structurizr, ADRs, and OpenCode at [Hello World Dev Conference 2026](https://hwdc.ithome.com.tw/2026/lab/5031). See [GitHub Pages](https://mansunkuo.github.io/hello-world-2026/) for the expected diagrams and the [slides](https://docs.google.com/presentation/d/1YfZBMpULgOrdtoa9L1iHY5ObSL-lR-2khWodCIBXsD4/edit?usp=sharing) used in this lab.
+
+## Structurizr Template
 
 A project template for modelling software architecture as code with [Structurizr](https://structurizr.com)
 (the [C4 model](https://c4model.com)), with:
