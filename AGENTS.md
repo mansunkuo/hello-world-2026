@@ -9,7 +9,6 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 - When I say "do not edit files yet", only propose; do not edit.
 
 ## Syntax
-- Include `configuration { scope softwaresystem }`.
 - The opening `{` goes at the end of the declaration line, never on its own line.
 - View keys may only contain `a-zA-Z0-9_-`. Titles may be in any language.
 - `autoLayout` always needs a direction: `autoLayout lr`.
@@ -19,7 +18,7 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 - Every element (person, softwareSystem, container, component, deploymentNode) needs a one-sentence description of its responsibility.
 - Containers and components need a technology.
 - Write relationships as verb phrases. For machine-to-machine relationships, put the protocol in the last quoted string: `a -> b "verb phrase" "HTTPS"`. Never put the protocol inside the verb phrase.
-- People and in-process calls have no protocol; leave it out.
+- Person-to-system relationships normally carry no protocol. Adding one when it carries information the verb phrase cannot, but never invent a protocol just to silence `inspect`.
 - Systems we do not own get the tag `"External System"` (keep this exact tag).
 - In the first step, define one `styles` entry for the tag `"External System"` only (`#999999`, white text). The base colors for people, systems, containers and components come from the theme.
 - Reference themes by their raw GitHub URL only. Never use `theme default`, never use a bare theme name (it does not resolve in this setup), and never create theme files.
@@ -31,7 +30,7 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 
 ## Before you finish
 - Run `validate` and wait for `OK` before saying you are done.
-- Run `inspect` and report every finding to me.
+- Run `inspect` and report every finding to me. Missing-technology findings on person-to-system relationships are expected (see Content): report them and leave the relationships as they are, do not invent a protocol to silence them.
 - Use `parse` to count the boxes and lines of the new view; do not guess.
 - Show me the new diagram.
 - If you cannot reach the MCP server, say so honestly instead of claiming success.
