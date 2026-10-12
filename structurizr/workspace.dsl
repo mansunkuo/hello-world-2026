@@ -65,12 +65,7 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
             }
         }
     }
-
-    configuration {
-        scope softwaresystem
-    }
-
-    views {
+views {
         systemLandscape "SystemLandscape" {
             include *
             autoLayout lr
