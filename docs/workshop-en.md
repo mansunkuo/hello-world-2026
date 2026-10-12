@@ -111,7 +111,6 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 - When I say "do not edit files yet", only propose; do not edit.
 
 ## Syntax
-- Include `configuration { scope softwaresystem }`.
 - The opening `{` goes at the end of the declaration line, never on its own line.
 - View keys may only contain `a-zA-Z0-9_-`. Titles may be in any language.
 - `autoLayout` always needs a direction: `autoLayout lr`.
@@ -237,10 +236,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         preorderSystem -> storeSystem "Sends the winner list and pickup stores"
     }
 
-    configuration {
-        scope softwaresystem
-    }
-
     views {
         systemContext preorderSystem "SystemContext" {
             include *
@@ -360,10 +355,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         lotteryJob -> preorderDb "Reads registrations and writes lottery results" "SQL"
         lotteryJob -> realnameApp "Asks the app to push the lottery results" "HTTPS"
         preorderApi -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
@@ -506,10 +497,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         lotteryJob -> realnameApp "Asks the app to push the lottery results" "HTTPS"
     }
 
-    configuration {
-        scope softwaresystem
-    }
-
     views {
         systemContext preorderSystem "SystemContext" {
             include *
@@ -619,10 +606,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         pickupService -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
         lotteryJob -> preorderDb "Reads registrations and writes lottery results" "SQL"
         lotteryJob -> realnameApp "Asks the app to push the lottery results" "HTTPS"
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
@@ -822,10 +805,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         }
     }
 
-    configuration {
-        scope softwaresystem
-    }
-
     views {
         systemContext preorderSystem "SystemContext" {
             include *
@@ -992,10 +971,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
                 }
             }
         }
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
@@ -1220,10 +1195,6 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
                 }
             }
         }
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {

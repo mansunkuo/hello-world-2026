@@ -111,7 +111,6 @@ This project models a system as C4 diagrams in Structurizr DSL. Everything lives
 - When I say "do not edit files yet", only propose; do not edit.
 
 ## Syntax
-- Include `configuration { scope softwaresystem }`.
 - The opening `{` goes at the end of the declaration line, never on its own line.
 - View keys may only contain `a-zA-Z0-9_-`. Titles may be in any language.
 - `autoLayout` always needs a direction: `autoLayout lr`.
@@ -237,10 +236,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
         preorderSystem -> storeSystem "傳送抽中名單與取貨門市"
     }
 
-    configuration {
-        scope softwaresystem
-    }
-
     views {
         systemContext preorderSystem "SystemContext" {
             include *
@@ -360,10 +355,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
         lotteryJob -> preorderDb "讀取登記並寫入抽選結果" "SQL"
         lotteryJob -> realnameApp "請 App 推播抽選結果" "HTTPS"
         preorderApi -> storeSystem "傳送抽中名單與取貨門市" "HTTPS"
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
@@ -506,10 +497,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
         lotteryJob -> realnameApp "請 App 推播抽選結果" "HTTPS"
     }
 
-    configuration {
-        scope softwaresystem
-    }
-
     views {
         systemContext preorderSystem "SystemContext" {
             include *
@@ -619,10 +606,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
         pickupService -> storeSystem "傳送抽中名單與取貨門市" "HTTPS"
         lotteryJob -> preorderDb "讀取登記並寫入抽選結果" "SQL"
         lotteryJob -> realnameApp "請 App 推播抽選結果" "HTTPS"
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
@@ -822,10 +805,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
         }
     }
 
-    configuration {
-        scope softwaresystem
-    }
-
     views {
         systemContext preorderSystem "SystemContext" {
             include *
@@ -992,10 +971,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
                 }
             }
         }
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
@@ -1220,10 +1195,6 @@ workspace "玩具預購抽選服務" "C4 工作坊" {
                 }
             }
         }
-    }
-
-    configuration {
-        scope softwaresystem
     }
 
     views {
