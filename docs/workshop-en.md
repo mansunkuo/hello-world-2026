@@ -34,9 +34,9 @@ You describe what each diagram should say; **opencode** writes the [Structurizr 
 
 ---
 
-## The Six Steps
+## Steps
 
-C4 is not "draw six diagrams". It is **answering a series of questions in order, where each one zooms into a box of the previous diagram**. The six diagrams live in one file, `structurizr/workspace.dsl`. Each step only adds to it; you never rewrite it or delete earlier diagrams.
+This workshop is not "draw six diagrams". It is **answering a series of questions in order, where each one zooms into a box of the previous diagram**. The six diagrams live in one file, `structurizr/workspace.dsl`. Each step only adds to it; you never rewrite it or delete earlier diagrams.
 
 | Step | Diagram | The question it answers |
 | --- | --- | --- |
@@ -672,7 +672,7 @@ All three locations must appear in the same view.
 - [ ] **The lines that cross locations are visible**: Real-name App → Preorder API, Lottery Job → Real-name App, and Preorder API → Store Pickup System each go from one location to another. That crossing is the whole point of this diagram.
 - [ ] The navigation shows 5 diagrams, and the first four are unchanged.
 
-> **This diagram will very likely turn into a mess; that is expected** (the reference answer has 15 boxes and 6 lines, nested three levels deep: location → machine → instance). The cause and the fix are in the next step.
+> **This diagram will very likely turn into a mess. The fix are in the next step.**
 >
 > The reference answer uses AWS; with Azure or GCP the node names and icon tags differ, but the structure is identical. See "Themes" in "Before the Workshop" for the theme URLs and how to look up tags. If the cloud nodes show no icon, first check that the theme URL is correct and that the viewer can reach GitHub.
 >
@@ -1245,6 +1245,19 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
 </details>
 
 ### Things to Try Next
+
+#### Scenario exercise: the system crashed during a high-demand preorder campaign
+
+The moment the campaign launched, thousands of people rushed in to register. The API timed out, and even though it was an "order-independent lottery registration", the sudden peak traffic still brought the system down for five minutes. Same model; which parts should evolve with it? Think first, then draw:
+
+- **System Context:** Do the external systems and people change? Was our system overwhelmed, or did the external real-name app or store system fail to hold up?
+- **Containers:** Does registration have to write synchronously directly to the database? Could introducing a message broker between the API and the database be considered?
+- **Components:** Does checking campaign rules and preventing duplicate registration require running SQL queries against the DB every time? After switching to asynchronous writes, does a specific framework need to be introduced?
+- **PreorderFlow:** Which step is the bottleneck? Can the buyer flow change from "obtaining registration results immediately" to "registering first, with lottery results notified separately later"? What are the pros and cons of this approach?
+- **Deployment:** What are the Fargate settings? Did the engineers forget to add a load balancer? Or was database reading or writing actually too slow? Should we add Auto Scaling, Multi-AZ, or database read/write splitting?
+- **ADR:** 
+  - What did the system sacrifice to introduce a message broker for high availability? What options were considered? What are the pros and cons? What operational aspects require special attention going forward?
+  - Does the database need read/write splitting? With a message broker, is database read/write splitting still needed? What are the pros and cons of batch writes?
 
 #### Spin-off exercise: what if it becomes a "first come, first served" flash sale?
 
