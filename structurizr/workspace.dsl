@@ -66,6 +66,10 @@ workspace "Toy Preorder Lottery Service" "C4 Workshop" {
         }
     }
 views {
+        properties {
+            "mermaid.url" "https://mermaid.ink"
+            "mermaid.format" "svg"
+        }
         systemLandscape "SystemLandscape" {
             include *
             autoLayout lr
@@ -95,6 +99,34 @@ views {
             realnameApp -> preorderApi "Forwards the store choice (with real-name credential)" "HTTPS"
             preorderApi -> storeSystem "Sends the winner list and pickup stores" "HTTPS"
             autoLayout lr
+        }
+        image preorderSystem "PreorderFlowMermaid" {
+            title "The full flow of a preorder campaign (Mermaid sequence diagram)"
+            mermaid """
+%%{init: { 'theme': 'neutral' } }%%
+sequenceDiagram
+    autonumber
+    participant Operator
+    participant AdminWeb as Admin Web
+    participant Buyer
+    participant RealnameApp as Real-name App
+    participant PreorderApi as Preorder API
+    participant PreorderDb as Preorder DB
+    participant LotteryJob as Lottery Job
+    participant StoreSystem as Store System
+
+    rect rgb(255, 255, 255)
+    Operator->>AdminWeb: Sets campaign period and per-buyer entry limit
+    Buyer->>RealnameApp: Registers for toys during campaign
+    RealnameApp->>PreorderApi: Forwards registration (with real-name credential) (HTTPS)
+    PreorderApi->>PreorderDb: Checks period and limit, saves registration (SQL)
+    LotteryJob->>PreorderDb: At closing, reads registrations, draws, saves results (SQL)
+    LotteryJob->>RealnameApp: Asks app to push results (HTTPS)
+    Buyer->>RealnameApp: Winning buyer chooses pickup store
+    RealnameApp->>PreorderApi: Forwards store choice (with real-name credential) (HTTPS)
+    PreorderApi->>StoreSystem: Sends winner list and pickup stores (HTTPS)
+    end
+"""
         }
         deployment * "Production" "Deployment" "Where each service actually runs in production." {
             include *

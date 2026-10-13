@@ -1,11 +1,9 @@
 {
-  "configuration" : {
-    "scope" : "SoftwareSystem"
-  },
+  "configuration" : { },
   "description" : "C4 Workshop",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2026-10-10T17:52:00Z",
+  "lastModifiedDate" : "2026-10-13T12:33:35Z",
   "model" : {
     "deploymentNodes" : [ {
       "children" : [ {
@@ -513,7 +511,7 @@
   },
   "name" : "Toy Preorder Lottery Service",
   "properties" : {
-    "structurizr.inspection.error" : "8",
+    "structurizr.inspection.error" : "9",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
     "structurizr.inspection.warning" : "0"
@@ -589,6 +587,10 @@
     } ],
     "configuration" : {
       "lastSavedView" : "Deployment",
+      "properties" : {
+        "mermaid.format" : "svg",
+        "mermaid.url" : "https://mermaid.ink"
+      },
       "styles" : {
         "elements" : [ {
           "background" : "#999999",
@@ -733,7 +735,7 @@
       "environment" : "Production",
       "key" : "Deployment",
       "name" : "Deployment View: Production",
-      "order" : 6,
+      "order" : 7,
       "relationships" : [ {
         "id" : "43"
       }, {
@@ -876,6 +878,15 @@
         "order" : "9",
         "response" : false
       } ]
+    } ],
+    "imageViews" : [ {
+      "content" : "https://mermaid.ink/svg/pako:eJydVMFq4zAQ_ZXBEJKCcyn04kPB3bDslsJm14VecpGlqT3UkrySvCGE_PuO7HjjJimU9cH4yU9Pb94M2kMircIkS2azPRkKGexhHmrUOM9gbrALTjRzOMBhNtsYj787NBJXJCon9MYAP6IL1nS6RDfgVrhAklphAvxo0Ylgr_zJlSbzgiUIP3wDg0vaQ7e7pvsLRWOExrxto0CEy4iBFy7Za4fWKXR5S5E9QsjX3z8mr8p33NXDJfXJhoBu92h76hEBw0tqwSFgsfMBdeT2EAa8MQPdoQzgqnJxe3eXwvi6GX6OQS7v78fkMigweJBCt4IqA8wgq0AYFT-XZUwO0AS21JCmMAj1gbLKJMGM86uIrTgPr9ZBsDsPqnNkqn_qw-bJJpaYxJrBV-u2winPZUQtNkvWwGJLoealsT3SoWJLJJobWHx7fl4Xx_omWhPlFRf5pUb55qfV9dWk4MUfPD-u-Pl0FDz15kwvDyAb67m4NBo7c-xTUE5s_Unedw2n_JHyuxhzz0YFj2Sw0Ha-Pu2elnq1Ay9kTMx76JqsrfV8ekvyrWvBx2n5fAd6etQgif_bgcm8xjkzLLtli-yt4ayGIZuYOyuR-UkKiUanBakk2yf9lcLXjMJXwZEkh8NffAiMTg==",
+      "contentType" : "image/svg+xml",
+      "elementId" : "3",
+      "key" : "PreorderFlowMermaid",
+      "name" : "The full flow of a preorder campaign (Mermaid sequence diagram)",
+      "order" : 6,
+      "title" : "The full flow of a preorder campaign (Mermaid sequence diagram)"
     } ],
     "systemContextViews" : [ {
       "automaticLayout" : {
