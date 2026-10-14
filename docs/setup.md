@@ -27,6 +27,7 @@
 | curl、tar | OpenCode 安裝腳本需要 | `curl --version`、`tar --version` |
 | Docker 或 Podman | 執行 Structurizr 檢視器與 MCP server | `docker version`（或 `podman version`） |
 | OpenCode V2 | AI 程式協作助理 | `opencode --version`（應該是 `2.x`） |
+| 模型存取 | OpenCode Console（免費） / OpenCode Go 帳號（付費），或你自己的 API key | 在 OpenCode 裡執行 `/models` |
 | 模型存取 | OpenCode Go 帳號（含免費模型），或你自己的 API key | 在 OpenCode 裡執行 `/models` |
 | VS Code 1.85 以上 | 編輯器，OpenChamber 的最低需求 | `code --version` |
 | Node.js | **選用**：只有用 npm 安裝 OpenCode 時才需要 | `node --version` |

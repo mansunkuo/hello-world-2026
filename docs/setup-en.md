@@ -26,7 +26,7 @@ This guide gets your **OpenCode V2 + Structurizr + VS Code** environment ready b
 | curl, tar | Needed by the OpenCode install script | `curl --version`, `tar --version` |
 | Docker or Podman | Runs the Structurizr viewer and the MCP server | `docker version` (or `podman version`) |
 | OpenCode V2 | The AI coding assistant | `opencode --version` (should be `2.x`) |
-| Model access | An OpenCode Go account (includes free models), or your own API key | Run `/models` inside OpenCode |
+| Model access | An OpenCode Console (free) / OpenCode Go (paid) account , or your own API key | Run `/models` inside OpenCode |
 | VS Code 1.85 or later | Editor; OpenChamber's minimum requirement | `code --version` |
 | Node.js | **Optional**: only if you install OpenCode with npm | `node --version` |
  
