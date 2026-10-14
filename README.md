@@ -85,7 +85,7 @@ python3 -m http.server 8080 --directory structurizr/static-site
 ```
 
 To export with manually saved layout instead (from `workspace.json`, which retains layout created in
-Structurizr local), point `-workspace workspace.json` instead.
+Structurizr local), point `-workspace workspace.json` instead, or run `make export-saved`.
 
 ### Make targets
 
@@ -96,6 +96,7 @@ make up            # start the interactive viewer detached (http://localhost:808
 make down          # stop the viewer container
 make logs          # follow the viewer logs
 make export        # export the static site to structurizr/static-site/
+make export-saved  # same, but from structurizr/workspace.json (keeps manual layout)
 make validate      # validate workspace.dsl
 make clean         # remove the exported structurizr/static-site/
 ```
@@ -112,7 +113,8 @@ DOCKER=podman make export
 The workflow in `.github/workflows/deploy-static-site.yml`:
 
 1. runs on every push to `main` (or via `workflow_dispatch`)
-2. runs the `structurizr/structurizr` Docker image to export `structurizr/workspace.dsl` as a static site
+2. runs the `structurizr/structurizr` Docker image to export the workspace as a static site, preferring
+   `structurizr/workspace.json` (keeps manual layout) and falling back to `structurizr/workspace.dsl`
 3. uploads the result as a GitHub Pages artifact and deploys it via `actions/deploy-pages`
 
 ### One-time setup
